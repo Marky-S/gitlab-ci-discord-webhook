@@ -90,7 +90,7 @@ if [ -z $LINK_ARTIFACT ] || [ $LINK_ARTIFACT = false ] ; then
       },
       "title": "'"$COMMIT_SUBJECT"'",
       "url": "'"$URL"'",
-      "description": "'"${DEPLOY_TO_TEST//$'\n'/ }"\\n"${DEPLOY_TO_PROD//$'\n'/ }"\\n"${COMMIT_MESSAGE//$'\n'/ }"\\n\\n"$CREDITS"'",
+      "description": "'"${DEPLOY_TO_TEST}"\\n"${DEPLOY_TO_PROD}"\\n"${COMMIT_MESSAGE//$'\n'/ }"\\n"$CREDITS"'",
       "fields": [
         {
           "name": "Commit",
@@ -118,7 +118,7 @@ else
 			},
 			"title": "'"$COMMIT_SUBJECT"'",
 			"url": "'"$URL"'",
-			"description": "'"${DEPLOY_TO_TEST//$'\n'/ }"\\n"${DEPLOY_TO_PROD//$'\n'/ }"\\n"${COMMIT_MESSAGE//$'\n'/ }"\\n\\n"$CREDITS"'",
+			"description": "'"${DEPLOY_TO_TEST}"\\n"${DEPLOY_TO_PROD}"\\n"${COMMIT_MESSAGE//$'\n'/ }"\\n"$CREDITS"'",
 			"fields": [
 			{
 				"name": "Commit",
