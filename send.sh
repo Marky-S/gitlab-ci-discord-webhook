@@ -61,11 +61,11 @@ else
   CREDITS="$AUTHOR_NAME authored & $COMMITTER_NAME committed"
 fi
 
-if [ DEPLOY_TO_TEST = true ]; then
+if [ $DEPLOY_TO_TEST ]; then
   DEPLOY_TO="Deploy on test server"
 fi
 
-if [ DEPLOY_TO_PROD = true ]; then
+if [ $DEPLOY_TO_PROD ]; then
   DEPLOY_TO="Deploy on production"
 fi
 
