@@ -23,16 +23,32 @@ esac
 shift
 
 case $1 in
-  "deployProduction" )
-    DEPLOY_TO="Deploy on production servers"
+  "yes" )
+    DEPLOY_TO_TEST="Deploy on test server"
     ;;
 
-  "deployTest" )
-    DEPLOY_TO="Deploy on test server"
+  "no" )
+    DEPLOY_TO_TEST=""
     ;;
 
   * )
-    DEPLOY_TO="Deploy on unknown"
+    DEPLOY_TO_TEST=""
+    ;;
+esac
+
+shift
+
+case $1 in
+  "yes" )
+    DEPLOY_TO_PROD="Deploy on production servers"
+    ;;
+
+  "no" )
+    DEPLOY_TO_PROD=""
+    ;;
+
+  * )
+    DEPLOY_TO_PROD=""
     ;;
 esac
 
@@ -74,7 +90,7 @@ if [ -z $LINK_ARTIFACT ] || [ $LINK_ARTIFACT = false ] ; then
       },
       "title": "'"$COMMIT_SUBJECT"'",
       "url": "'"$URL"'",
-      "description": "'"${DEPLOY_TO//$'\n'/ }"\\n\\n"${COMMIT_MESSAGE//$'\n'/ }"\\n\\n"$CREDITS"'",
+      "description": "'"${DEPLOY_TO_TEST//$'\n'/ }"\\n\\n"${DEPLOY_TO_PROD//$'\n'/ }"\\n\\n"${COMMIT_MESSAGE//$'\n'/ }"\\n\\n"$CREDITS"'",
       "fields": [
         {
           "name": "Commit",
@@ -102,7 +118,7 @@ else
 			},
 			"title": "'"$COMMIT_SUBJECT"'",
 			"url": "'"$URL"'",
-			"description": "'"${DEPLOY_TO//$'\n'/ }"\\n\\n"${COMMIT_MESSAGE//$'\n'/ }"\\n\\n"$CREDITS"'",
+			"description": "'"${DEPLOY_TO_TEST//$'\n'/ }"\\n\\n"${DEPLOY_TO_PROD//$'\n'/ }"\\n\\n"${COMMIT_MESSAGE//$'\n'/ }"\\n\\n"$CREDITS"'",
 			"fields": [
 			{
 				"name": "Commit",
