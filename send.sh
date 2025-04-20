@@ -24,15 +24,10 @@ shift
 
 case $1 in
   "yes" )
-    DEPLOY_TO_TEST="Deploy on test server"
+    DEPLOY_TO_TEST=true
     ;;
-
-  "no" )
-    DEPLOY_TO_TEST=""
-    ;;
-
   * )
-    DEPLOY_TO_TEST=""
+    DEPLOY_TO_TEST=false
     ;;
 esac
 
@@ -40,15 +35,11 @@ shift
 
 case $1 in
   "yes" )
-    DEPLOY_TO_PROD="Deploy on production servers"
-    ;;
-
-  "no" )
-    DEPLOY_TO_PROD=""
+    DEPLOY_TO_PROD=true
     ;;
 
   * )
-    DEPLOY_TO_PROD=""
+    DEPLOY_TO_PROD=false
     ;;
 esac
 
@@ -70,6 +61,15 @@ else
   CREDITS="$AUTHOR_NAME authored & $COMMITTER_NAME committed"
 fi
 
+if [ DEPLOY_TO_TEST = true ]; then
+  DEPLOY_TO="Deploy on test server"
+fi
+
+if [ DEPLOY_TO_PROD = true ]; then
+  DEPLOY_TO="Deploy on production"
+fi
+
+
 if [ -z $CI_MERGE_REQUEST_ID ]; then
   URL=""
 else
@@ -90,7 +90,7 @@ if [ -z $LINK_ARTIFACT ] || [ $LINK_ARTIFACT = false ] ; then
       },
       "title": "'"$COMMIT_SUBJECT"'",
       "url": "'"$URL"'",
-      "description": "'"${DEPLOY_TO_TEST}"\\n"${DEPLOY_TO_PROD}"\\n"${COMMIT_MESSAGE//$'\n'/ }"\\n"$CREDITS"'",
+      "description": "'"${DEPLOY_TO}"\\n"$CREDITS"'",
       "fields": [
         {
           "name": "Commit",
@@ -118,7 +118,7 @@ else
 			},
 			"title": "'"$COMMIT_SUBJECT"'",
 			"url": "'"$URL"'",
-			"description": "'"${DEPLOY_TO_TEST}"\\n"${DEPLOY_TO_PROD}"\\n"${COMMIT_MESSAGE//$'\n'/ }"\\n"$CREDITS"'",
+			"description": "'"${DEPLOY_TO}"\\n"$CREDITS"'",
 			"fields": [
 			{
 				"name": "Commit",
