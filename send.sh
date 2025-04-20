@@ -22,6 +22,22 @@ esac
 
 shift
 
+case $1 in
+  "deployProduction" )
+    DEPLOY_TO="Deploy on production servers"
+    ;;
+
+  "deployTest" )
+    DEPLOY_TO="Deploy on test server"
+    ;;
+
+  * )
+    DEPLOY_TO="Deploy on unknown"
+    ;;
+esac
+
+shift
+
 if [ $# -lt 1 ]; then
   echo -e "WARNING!!\nYou need to pass the WEBHOOK_URL environment variable as the second argument to this script.\nFor details & guide, visit: https://github.com/DiscordHooks/gitlab-ci-discord-webhook" && exit
 fi
@@ -58,7 +74,7 @@ if [ -z $LINK_ARTIFACT ] || [ $LINK_ARTIFACT = false ] ; then
       },
       "title": "'"$COMMIT_SUBJECT"'",
       "url": "'"$URL"'",
-      "description": "'"${COMMIT_MESSAGE//$'\n'/ }"\\n\\n"$CREDITS"'",
+      "description": "'"${DEPLOY_TO//$'\n'/ }"\\n\\n"${COMMIT_MESSAGE//$'\n'/ }"\\n\\n"$CREDITS"'",
       "fields": [
         {
           "name": "Commit",
@@ -86,7 +102,7 @@ else
 			},
 			"title": "'"$COMMIT_SUBJECT"'",
 			"url": "'"$URL"'",
-			"description": "'"${COMMIT_MESSAGE//$'\n'/ }"\\n\\n"$CREDITS"'",
+			"description": "'"${DEPLOY_TO//$'\n'/ }"\\n\\n"${COMMIT_MESSAGE//$'\n'/ }"\\n\\n"$CREDITS"'",
 			"fields": [
 			{
 				"name": "Commit",
